@@ -29,14 +29,14 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 end	
 ```
 
-Después de tener el VagrantFile se hace un 
+Después de tener el Vagrantfile se hace un 
 ```
 vagrant up
 ```
 
 y entramos a la máquina con un
 ```
-vagrant ssh  centos_mirror(Nombre de la máquina especificada en el Vagrantfile)
+vagrant ssh centos_mirror(Nombre de la máquina especificada en el Vagrantfile)
 ```
 
 Una vez adentro de la máquina virtual se procede a generar la clave 
@@ -73,7 +73,19 @@ Luego de instalar aptly creamos el mirror a traves de aptly con el siguiente com
 aptly mirror create -architectures=amd64 -filter='Priority (required) | Priority (important) | Priority (standard) | postgresql' -filter-with-deps xenial-main-postgresql http://mirror.upb.edu.co/ubuntu/ xenial main
 ```
 
+Y lo actualizamos para que descargue los paquetes necesarios
+```
+aptly mirror update xenial-main-postgresql
+```
 
+Creamos un snaphost para poder exponer los paquetes y que puedan ser descargados desde otras máquinas virtuales y después las publicamos e ingresamos una passphrase
+```
+$ aptly snapshot create xenial-snapshot-postgresql from mirror xenial-main-postgresql
+$ aptly publish snapshot xenial-snapshot-postgresql
+```
 
-# editando......
+Por último iniciamos el mirror.
+```
+$ aptly serve
+```
 
