@@ -89,3 +89,5 @@ Por último iniciamos el mirror.
 $ aptly serve
 ```
 
+# Paso siguiente: crear el contenedor con docker
+
