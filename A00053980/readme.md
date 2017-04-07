@@ -85,7 +85,9 @@ $ aptly publish snapshot xenial-snapshot-postgresql
 ```
 
 Por último iniciamos el mirror.
-```
+``` Cancel
+Contact GitHub API Training Shop Blog About
+
 $ aptly serve
 ```
 
@@ -114,8 +116,6 @@ RUN apt-get clean -y
 RUN apt-get update -y
 RUN apt-get install postgresql -y
 
-#Configuracion del puerto de python
-#CMD service apache2 start && tail -f /var/log/apache2/access.log
 EXPOSE 5432
 CMD postgresql -m http.server 5432
 ```
@@ -125,7 +125,9 @@ Después para poder construir la imagen se hace lo siguiente
 $ docker build -t ubuntu_postgresql:0.0.1 .
 ```
 
-Después como lo muestra la estrutura antes mostrada, después de tener la imagen se corre para poder levantar el contenedor esto lo hacemos con el siguiente código
+Después como lo muestra la estrutura antes mostrada, después de tener la imagen se corre para poder levantar el contenedor esto lo hacemos con el siguiente código Cancel
+Contact GitHub API Training Shop Blog About
+
 ```
 $ docker run -it --rm ubuntu_postgresql:0.0.1 /bin/bash
 ```
