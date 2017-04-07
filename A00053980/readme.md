@@ -91,3 +91,54 @@ $ aptly serve
 
 # Paso siguiente: crear el contenedor con docker
 
+FOTO 
+```
+![GitHub Logo] (/images/logo-png)
+```
+
+Como lo muestra en la imagen para poder crear la imagen necesitamos un dockerfile con las siguientes especificaciones
+```
+FROM ubuntu:16.04
+MAINTAINER tebannew@gmail.com	
+
+ADD config/my_key.pub /tmp
+
+#COnfigure repositorio
+RUN apt-key add /tmp/my_key.pub && \
+    rm -f /tmp/my_key.pub && \
+    echo "deb http://192.168.131.11:8080/ xenial main" >  /etc/apt/sources.list && \
+    chmod 777 /tmp
+
+#Install packege
+RUN apt-get clean -y
+RUN apt-get update -y
+RUN apt-get install postgresql -y
+
+#Configuracion del puerto de python
+#CMD service apache2 start && tail -f /var/log/apache2/access.log
+EXPOSE 5432
+CMD postgresql -m http.server 5432
+```
+
+Después para poder construir la imagen se hace lo siguiente
+```
+$ docker build -t ubuntu_postgresql:0.0.1 .
+```
+
+Después como lo muestra la estrutura antes mostrada, después de tener la imagen se corre para poder levantar el contenedor esto lo hacemos con el siguiente código
+```
+$ docker run -it --rm ubuntu_postgresql:0.0.1 /bin/bash
+```
+
+# Paso siguiente : prueba de funcionamiento con la creación de una base de datos
+
+Activación postgres
+```
+/etc/init.d/postgresql start 
+```
+
+Siguiente a esto cambiamos el usuario de postgres y abrimos la consola de Postgresql.
+```
+su - postgres
+psql
+```
