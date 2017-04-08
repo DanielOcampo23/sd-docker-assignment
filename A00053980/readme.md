@@ -98,7 +98,7 @@ FOTO
 ![GitHub Logo] (/images/logo-png)
 ```
 
-Como lo muestra en la imagen para poder crear la imagen necesitamos un dockerfile con las siguientes especificaciones
+Como lo muestra en la imagen para poder crear la imagen necesitamos un Dockerfile con las siguientes especificaciones
 ```
 FROM ubuntu:16.04
 MAINTAINER tebannew@gmail.com	
@@ -143,4 +143,37 @@ Siguiente a esto cambiamos el usuario de postgres y abrimos la consola de Postgr
 ```
 su - postgres
 psql
+```
+
+Creamos la base de datos
+```
+CREATE DATABASE pruebaFuncionamiento;
+```
+
+Nos connectamos a la base de datos que acabamos de crear
+```
+\c pruebafuncionamiento
+```
+
+Y creamos una tabla en la bases de datos
+```
+CREATE TABLE Cuentas
+(
+  NumeroCuenta int,
+  ClienteId int,
+  NombreCliente varchar(255),
+  Saldo varchar(255),
+  Clave varchar(255),
+);
+```
+
+E insertamos algunos datos 
+```
+INSERT INTO cuentas (NumeroCuenta, ClienteId, NombreCliente, Saldo, Clave) VALUES (123, 12345, 'Daniel', 10000000, cuenta123);
+INSERT INTO cuentas (NumeroCuenta, ClienteId, NombreCliente, Saldo, Clave) VALUES (456, 67890, 'Pepe', 20000000, micuenta2);
+```
+
+y por ultimo podemos realizar una consultar para confirmar el funcionamiento
+```
+SELECT NumeroCuenta FROM cuentas; 
 ```
